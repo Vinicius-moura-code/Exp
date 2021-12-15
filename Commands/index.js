@@ -56,8 +56,8 @@ const Commands = (client, prefix) => {
       msg.member.voice.channel.leave();
       connection = null;
       dispatcher = null;
-      isRunning = false
-      queue = null
+      isRunning = false;
+      queue = null;
     }
 
     //--------------------- Player de musica ---------------------\\
@@ -101,9 +101,9 @@ const Commands = (client, prefix) => {
             if (result) {
               for (let i in result.data.items) {
                 const buildItem = {
-                  'titulo': result.data.items[i].snippet.title,
-                  'canalName': result.data.items[i].snippet.channelTitle,
-                  'id':`https://www.youtube.com/watch?v=${result.data.items[i].id.videoId}` 
+                  titulo: result.data.items[i].snippet.title,
+                  canalName: result.data.items[i].snippet.channelTitle,
+                  id: `https://www.youtube.com/watch?v=${result.data.items[i].id.videoId}`,
                 };
 
                 listResult.push(buildItem);
@@ -151,7 +151,7 @@ const Commands = (client, prefix) => {
                     );
                     queue.push(listResult[idOption].id);
                     playSongs();
-                    queue = null
+                    queue = null;
                   })
                   .catch((error) => {
                     msg.reply(
