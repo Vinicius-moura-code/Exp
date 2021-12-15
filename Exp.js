@@ -1,15 +1,15 @@
-require('dotenv').config()
+require('dotenv').config();
 const Discord = require('discord.js');
-
 const Commands = require('./Commands/index');
 
-const TOKEN = process.env.TOKEN
-const client = new Discord.Client();
 
-client.login(TOKEN);
+const client = new Discord.Client();
+const prefix = '+';
 
 client.on('ready', () => {
   console.log('o pai ta on');
 });
 
-Commands(client);
+Commands(client, prefix);
+
+client.login(process.env.TOKEN);
