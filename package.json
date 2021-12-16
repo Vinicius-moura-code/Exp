@@ -6,7 +6,8 @@
   "author": "Vinicius-moura-code (viniciusrebelo487@gmail.com)",
   "license": "MIT",
   "scripts": {
-    "start": "nodemon Exp.js"
+    "start": "nodemon Exp.js",
+    "build": "node Exp.js"
   },
   "dependencies": {
     "@discordjs/opus": "^0.7.0",
