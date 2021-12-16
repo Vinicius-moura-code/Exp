@@ -2,8 +2,8 @@ require('dotenv').config();
 const ytdl = require('ytdl-core');
 const Servers = require('../Servers');
 const Discord = require('discord.js');
-
 const google = require('googleapis');
+
 const youtube = new google.youtube_v3.Youtube({
   version: 'v3',
   auth: process.env.GOOGLE_TOKEN,
@@ -25,10 +25,10 @@ const playSongs = () => {
     dispatcher = connection.play(ytdl(running, { filter: 'audioonly' }));
 
     dispatcher.on('finish', () => {
-      queue.shift();
       isRunning = false;
 
       if (queue.length > 0) {
+        queue.shift();
         playSongs();
       } else {
         dispatcher = null;
@@ -149,6 +149,8 @@ const Commands = (client, prefix) => {
                     msg.channel.send(
                       `Essa  ${listResult[idOption].titulo} é boa, nice escolha 👌`
                     );
+                    msg.channel.send('.cleanup bot');
+
                     queue.push(listResult[idOption].id);
                     playSongs();
                     queue = null;
@@ -166,10 +168,10 @@ const Commands = (client, prefix) => {
       }
     }
 
-    if (msg.content === prefix + 'pause') {
+    if (msg.content === `${prefix}pause`) {
       dispatcher.pause();
     }
-    if (msg.content === prefix + 'resume') {
+    if (msg.content === `${prefix}resume`) {
       dispatcher.resume();
     }
   });
