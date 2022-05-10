@@ -27,12 +27,12 @@ const playSongs = () => {
     dispatcher.on('finish', () => {
       isRunning = false;
 
-      if (queue.length > 0) {
-        queue.shift();
-        playSongs();
-      } else {
-        dispatcher = null;
-      }
+        if (queue.length > 0) {
+          queue.shift();
+          playSongs();
+        } else {
+          dispatcher = null;
+        }
     });
   }
 };
@@ -52,12 +52,12 @@ const Commands = (client, prefix) => {
       }
     }
 
-    if (msg.content === `${prefix}leave`) {
+    if (msg.content === `${prefix}leave` || msg.content === `${prefix}stop`) {
       msg.member.voice.channel.leave();
       connection = null;
       dispatcher = null;
       isRunning = false;
-      queue = null;
+      queue.length = 0;
     }
 
     //--------------------- Player de musica ---------------------\\
@@ -149,11 +149,9 @@ const Commands = (client, prefix) => {
                     msg.channel.send(
                       `Essa  ${listResult[idOption].titulo} é boa, nice escolha 👌`
                     );
-                    msg.channel.send('.cleanup bot');
-
                     queue.push(listResult[idOption].id);
                     playSongs();
-                    queue = null;
+                    queue.length = 0;
                   })
                   .catch((error) => {
                     msg.reply(
@@ -173,6 +171,9 @@ const Commands = (client, prefix) => {
     }
     if (msg.content === `${prefix}resume`) {
       dispatcher.resume();
+    }
+    if (msg.content === `${prefix}skip`) {
+      dispatcher.skip();
     }
   });
 };
